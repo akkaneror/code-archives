@@ -6,7 +6,7 @@
 # to left of pivot and all greater elements to right
 # of pivot
 def partition(arr, low, high):
-    i = (low - 1)  # index of smaller element
+    index = (low - 1)  # index of smaller element
     pivot = arr[high]  # pivot
 
     for j in range(low, high):
@@ -15,11 +15,11 @@ def partition(arr, low, high):
         # equal to pivot
         if arr[j] <= pivot:
             # increment index of smaller element
-            i = i + 1
-            arr[i], arr[j] = arr[j], arr[i]
+            index = index + 1
+            arr[index], arr[j] = arr[j], arr[index]
 
-    arr[i + 1], arr[high] = arr[high], arr[i + 1]
-    return (i + 1)
+    arr[index + 1], arr[high] = arr[high], arr[index + 1]
+    return index + 1
 
 
 # The main function that implements QuickSort
@@ -48,6 +48,7 @@ quickSort(arr, 0, n - 1)
 print("Sorted array is:")
 for i in range(n):
     print("%d" % arr[i]),
+
 
 # good ol' qsort
 def quickSortBasic(x):
@@ -88,9 +89,3 @@ def quickSort3Way(array):
     else:
         return array
 
-
-quickSortPartition([6, 4, 7, 1, 2, 9, 12, 3])
-
-alist = [54, 26, 93, 17, 77, 31, 44, 55, 20]
-quickSortPartition(alist)
-print(alist)
