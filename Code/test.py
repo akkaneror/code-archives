@@ -6,7 +6,7 @@
 # to left of pivot and all greater elements to right
 # of pivot
 def partition(arr, low, high):
-    index = (low - 1)  # index of smaller pelement
+    index = (low - 1)  # index of smaller element
     pivot = arr[high]  # pivot
 
     for j in range(low, high):
