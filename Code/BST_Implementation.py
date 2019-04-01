@@ -13,27 +13,34 @@ class Node(object):
         self.data = data
         self.leftChild = None
         self.rightChild = None
+        self.size = 1
 
-    def insert(self, data):
+    def update_stats(self):
+        self.size = (0 if self.leftChild is None else self.leftChild.size) \
+                    + \
+                    (0 if self.rightChild is None else self.rightChild.size)
+
+    def insert(self, k):
         ''' For inserting the data in the Tree '''
-        if self.data == data:
+        self.size += 1
+        if self.data == k:
             return False        # As BST cannot contain duplicate data
 
-        elif data < self.data:
+        elif k < self.data:
             ''' Data less than the root data is placed to the left of the root '''
-            if self.leftChild:
-                return self.leftChild.insert(data)
-            else:
-                self.leftChild = Node(data)
-                return True
+            if self.leftChild: #is not None
+                return self.leftChild.insert(k)
+            else: #is None
+                self.leftChild = Node(k)
+                return self.leftChild #return True
 
         else:
             ''' Data greater than the root data is placed to the right of the root '''
             if self.rightChild:
-                return self.rightChild.insert(data)
+                return self.rightChild.insert(k)
             else:
-                self.rightChild = Node(data)
-                return True
+                self.rightChild = Node(k)
+                return self.rightChild #return True
 
     def minValueNode(self, node):
         current = node
@@ -44,16 +51,16 @@ class Node(object):
 
         return current
 
-    def delete(self, data):
+    def delete(self, k):
         ''' For deleting the node '''
         if self is None:
             return None
 
         # if current node's data is less than that of root node, then only search in left subtree else right subtree
-        if data < self.data:
-            self.leftChild = self.leftChild.delete(data)
-        elif data > self.data:
-            self.rightChild = self.rightChild.delete(data)
+        if k < self.data:
+            self.leftChild = self.leftChild.delete(k)
+        elif k > self.data:
+            self.rightChild = self.rightChild.delete(k)
         else:
             # deleting node with one child
             if self.leftChild is None:
@@ -73,18 +80,18 @@ class Node(object):
 
         return self
 
-    def find(self, data):
+    def find(self, k):
         ''' This function checks whether the specified data is in tree or not '''
-        if(data == self.data):
+        if(k == self.data):
             return True
-        elif(data < self.data):
-            if self.leftChild:
-                return self.leftChild.find(data)
+        elif(k < self.data):
+            if self.leftChild: # is not None
+                return self.leftChild.find(k)
             else:
                 return False
         else:
-            if self.rightChild:
-                return self.rightChild.find(data)
+            if self.rightChild: # is not None
+                return self.rightChild.find(k)
             else:
                 return False
 
@@ -92,35 +99,51 @@ class Node(object):
         '''For preorder traversal of the BST '''
         if self:
             print(str(self.data), end = ' ')
-            if self.leftChild:
+            if self.leftChild: #is not None
                 self.leftChild.preorder()
-            if self.rightChild:
+            if self.rightChild: #is not None
                 self.rightChild.preorder()
 
     def inorder(self):
         ''' For Inorder traversal of the BST '''
         if self:
-            if self.leftChild:
+            if self.leftChild: #is not None
                 self.leftChild.inorder()
             print(str(self.data), end = ' ')
-            if self.rightChild:
+            if self.rightChild: #is not None
                 self.rightChild.inorder()
 
     def postorder(self):
         ''' For postorder traversal of the BST '''
         if self:
-            if self.leftChild:
+            if self.leftChild: #is not None
                 self.leftChild.postorder()
-            if self.rightChild:
+            if self.rightChild: #is not None
                 self.rightChild.postorder()
             print(str(self.data), end = ' ')
+
+    def rank(self, k):
+        """ Return the number of data <= k in the subtree rooted at this node."""
+        left_size = 0 if self.leftChild is None else self.leftChild.size
+        if k == self.data:
+            return left_size + 1
+        elif k < self.data:
+            if self.leftChild: #is not None
+                return self.leftChild.rank(k)
+            else: #is None
+                return 0
+        else:
+            if self.rightChild: #is not None
+                return self.rightChild.rank(k) + left_size + 1
+            else:
+                return left_size + 1
 
 class Tree(object):
     def __init__(self):
         self.root = None
 
     def insert(self, data):
-        if self.root:
+        if self.root is not None:
             return self.root.insert(data)
         else:
             self.root = Node(data)
@@ -154,6 +177,14 @@ class Tree(object):
             print('Postorder: ')
             self.root.postorder()
 
+    def rank(self, k):
+        """The number of data <= k in the tree"""
+        if self.root is not None:
+            return self.root.rank(k)
+        else:
+            return 0
+
+
 if __name__ == '__main__':
     tree = Tree()
     tree.insert(10)
@@ -182,6 +213,8 @@ if __name__ == '__main__':
     tree.preorder()
     tree.inorder()
     tree.postorder()
+    print('\nRank:', tree.rank(10))
+    print('\nRank:', tree.rank(12))
     print('\n\nAfter deleting 20')
     tree.delete(20)
     tree.inorder()
@@ -190,7 +223,7 @@ if __name__ == '__main__':
     tree.delete(10)
     tree.inorder()
     tree.preorder()
-
+    print('\nRank:', tree.rank(12))
 def search(root, key):
     # Base Cases: root is null or key is present at root
     if root is None or root.val == key:
