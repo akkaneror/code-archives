@@ -5,6 +5,7 @@
 # array, and places all smaller (smaller than pivot)
 # to left of pivot and all greater elements to right
 # of pivot
+import numpy as np
 def partition(arr, low, high):
     index = (low - 1)  # index of smaller element
     pivot = arr[high]  # pivot
@@ -28,7 +29,7 @@ def partition(arr, low, high):
 # high --> Ending index
 
 # Function to do Quick sort
-def quickSort(arr, low, high):
+def quickSortPartition(arr, low, high):
     if low < high:
         # pi is partitioning index, arr[p] is now
         # at right place
@@ -36,18 +37,17 @@ def quickSort(arr, low, high):
 
         # Separately sort elements before
         # partition and after partition
-        quickSort(arr, low, pi - 1)
-        quickSort(arr, pi + 1, high)
+        quickSortPartition(arr, low, pi - 1)
+        quickSortPartition(arr, pi + 1, high)
 
     # Driver code to test above
 
 
 arr = [10, 7, 8, 9, 1, 5]
 n = len(arr)
-quickSort(arr, 0, n - 1)
-print("Sorted array is:")
-for i in range(n):
-    print("%d" % arr[i]),
+quickSortPartition(arr, 0, n - 1)
+print("Sorted array is:", arr)
+
 
 
 # good ol' qsort
@@ -67,7 +67,7 @@ def quickSortBasic(x):
         first_part.append(x[i])
         return first_part + second_part
 
-
+import statistics
 def quickSort3Way(array):
     less = []
     equal = []
@@ -88,4 +88,24 @@ def quickSort3Way(array):
 
     else:
         return array
+def quickSort(arr, left, right):
+    i = left; j = right
+    pivot = arr[np.random.randint(left, right)]
+    while i <= j:
+        while arr[i] < pivot:
+            i += 1
+        while arr[j] > pivot:
+            j -= 1
 
+        if i <= j:
+            arr[i], arr[j] = arr[j], arr[i]
+            i += 1; j -= 1
+
+    if left < j:
+        quickSort(arr, left, j)
+    if i < right:
+        quickSort(arr, i, right)
+
+arr2 = np.array([10, 2, 9, 12, -2, 1, 15, 7, 20])
+quickSort(arr2, 0, len(arr2) - 1)
+print("Sorted Array:", arr2)
