@@ -2,5 +2,5 @@
     "python.linting.pylintEnabled": true,
     "python.pythonPath": "C:\\Users\\ak_ka\\Anaconda3\\envs\\vision3\\python.exe",
     "python.linting.enabled": true,
-    "python.dataScience.jupyterServerURI": " http://localhost:8888/?token=f6de2e823f60eb66d8c7ad0ec4a365f004819152b9a3c72f"
+    "python.dataScience.jupyterServerURI": "local"
 }
