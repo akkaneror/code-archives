@@ -109,3 +109,26 @@ def quickSort(arr, left, right):
 arr2 = np.array([10, 2, 9, 12, -2, 1, 15, 7, 20])
 quickSort(arr2, 0, len(arr2) - 1)
 print("Sorted Array:", arr2)
+import time
+x = 6234526374635423252534143413345657543456743567436754
+y = 5431245678980786542141234513453647454354657654335467
+
+def karatsuba(x, y):
+    if x < 10 and y < 10:
+        return x * y
+    mid = max(len(str(x)), len(str(y))) // 2
+    a = x // (10 ** mid)
+    b = x % (10 ** mid)
+    c = y // (10 ** mid)
+    d = y % (10 ** mid)
+    
+    return (10 ** (mid * 2)) * karatsuba(a, c) + (10 ** mid) * (karatsuba(b, c) + karatsuba(a, d)) + karatsuba(b, d)
+
+print(karatsuba(1234, 5678))
+start = time.clock()
+print(karatsuba(x, y))
+print(time.clock() - start)
+start2 = time.clock()
+print(x * y)
+print(time.clock() - start2)
+
