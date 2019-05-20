@@ -1,17 +1,40 @@
-import numpy as np
-import matplotlib.pyplot as plt
+def duplicate_items(list_numbers):
+    memory = []
+    repeated_lists = []
+    for i in range(0, len(list_numbers)):
+        if list_numbers[i] in memory:
+            repeated_lists.append(list_numbers[i])
+        else:
+            memory.append(list_numbers[i])
 
-# x co-ordinates
-x = np.arange(0, 9)
-A = np.array([x, np.ones(9)])
+    return repeated_lists
 
-# linearly generated sequence
-y = [19, 20, 20.5, 21.5, 22, 23, 23, 25.5, 24]
-# obtaining the parameters of regression line
-w = np.linalg.lstsq(A.T, y)[0]
+print(duplicate_items([1, 3, 4, 2, 1, 2, 4]))
 
-# plotting the line
-line = w[0]*x + w[1] # regression line
-plt.plot(x, line, 'r-')
-plt.plot(x, y, 'o')
-plt.show()
+def flip_vertical_axis(matrix):
+    for i in range(len(matrix)):
+        for j in range(len(matrix[i])//2):
+            matrix[i][j], matrix[i][len(matrix[i]) - j - 1] = matrix[i][len(matrix[i]) - j - 1], matrix[i][j]
+
+    return matrix
+
+print(flip_vertical_axis([[1,0,0],[0,0,1]]))
+
+def reverse_string(a_string):
+    return a_string[::-1]
+
+
+
+myTuple = ("John", "Peter", "Vicky")
+
+x = "".join(myTuple)
+
+print(x)
+
+def reverse_string(a_string):
+    str = list(a_string)
+    for i in range(len(a_string)//2):
+        str[i], str[-i-1] = str[-i-1], str[i]
+    return ''.join(str)
+
+print(reverse_string("bread"))

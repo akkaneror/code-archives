@@ -6,6 +6,7 @@
 # to left of pivot and all greater elements to right
 # of pivot
 import numpy as np
+
 def partition(arr, low, high):
     index = (low - 1)  # index of smaller element
     pivot = arr[high]  # pivot
@@ -67,7 +68,6 @@ def quickSortBasic(x):
         first_part.append(x[i])
         return first_part + second_part
 
-import statistics
 def quickSort3Way(array):
     less = []
     equal = []

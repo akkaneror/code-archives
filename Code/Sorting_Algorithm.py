@@ -10,14 +10,14 @@ Quick Sort in one method
 def quickSort(arr, left, right):
     i = left; j = right
     pivot = statistics.median([arr[0], arr[np.random.randint(left, right)], arr[-1]])
-    while i <= j:
+    while i <= j: #
         while arr[i] < pivot:
             i += 1
         while arr[j] > pivot:
             j -= 1
 
         if i <= j:
-            arr[i], arr[j] = arr[j], arr[i]
+            arr[i], arr[j] = arr[j], arr[i] #swap
             i += 1; j -= 1
 
     if left < j:
