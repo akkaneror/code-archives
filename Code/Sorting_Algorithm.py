@@ -4,11 +4,12 @@ import statistics
 main_array = np.array([10, 2, 9, 12, -2, 1, 15, 7, 20])
 qs_array = np.copy(main_array)
 ms_array = np.copy(main_array).tolist()
+
 '''
 Quick Sort in one method
 '''
 def quickSort(arr, left, right):
-    i = left; j = right
+    i = left; j = right;
     pivot = statistics.median([arr[0], arr[np.random.randint(left, right)], arr[-1]])
     while i <= j: #
         while arr[i] < pivot:
@@ -63,12 +64,11 @@ def mergeSort(arr):
         middle = len(arr) // 2
         left_arr = arr[:middle]
         right_arr = arr[middle:]
-
+        
         mergeSort(left_arr)
         mergeSort(right_arr)
 
         i = j = index = 0
-
         while i < len(left_arr) and j < len(right_arr):
             if left_arr[i] < right_arr[j]:
                 arr[index] = left_arr[i]
